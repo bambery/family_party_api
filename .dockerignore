@@ -2,6 +2,7 @@
 
 # Ignore git directory.
 /.git/
+.gitignore
 
 # Ignore bundler config.
 /.bundle
@@ -29,3 +30,7 @@
 !/storage/.keep
 /tmp/storage/*
 !/tmp/storage/.keep
+
+# ignore vim temp files
+*.swo
+*.swp
