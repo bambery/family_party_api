@@ -64,6 +64,8 @@ development:
 test:
   <<: *default
   database: family_party_test
+  user: user
+  password: password
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
