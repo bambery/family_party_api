@@ -4,8 +4,13 @@ require 'faker'
 RSpec.describe "Users API", type: :request do
   describe 'GET /users' do
     before do
-      FactoryBot.create(:user, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-      FactoryBot.create(:user, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+      user1 = {
+        :first_name => Faker::Name.first_name,
+        :last_name => Faker::Name.last_name
+      }
+      FactoryBot.create(:user, first_name: user1[:first_name] last_name: user1[:last_name], email: Faker::Internet.safe_email(name: "#{user1[:first_name} #{user1[:last_name]}"))
+      FactoryBot.create(:user, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.safe_email)
+      FactoryBot.create(
     end
 
     it "returns all users" do

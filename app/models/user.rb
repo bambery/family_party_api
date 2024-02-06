@@ -12,6 +12,8 @@ class User < ApplicationRecord
     presence: true,
     length: { minimum: 3, maximum: 25 },
     format: { with: /\A[a-zA-Z']+[\s\-]?[a-zA-Z]+\z/, message: "only letters, apostrophes, and a single blank space or a hyphen are allowed in last names" }
-
-
+  validates :email,
+    presence: true,
+    uniqueness: true,
+    format: { with: URI::MailTo::EMAIL_REGEXP }
 end
