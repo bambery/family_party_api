@@ -4,8 +4,7 @@ require 'faker'
 RSpec.describe "Users API", type: :request do
   describe 'GET /users' do
     before do
-      FactoryBot.create(:user, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-      FactoryBot.create(:user, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+      create_pair(:user)
     end
 
     it "returns all users" do
@@ -19,18 +18,19 @@ RSpec.describe "Users API", type: :request do
   describe 'POST /users' do
     it 'create a new user' do
       expect {
-        post "/api/v1/users", params: { user: { first_name: "Susan", last_name: "Wakoma" } }
+        post "/api/v1/users", params: { user: { first_name: "Susan", last_name: "Wakoma", email: "susanwakoma@test.com" } }
       }.to change { User.count }.from(0).to(1)
 
       expect(response).to have_http_status(:created)
 
       expect(JSON.parse(response.body)["first_name"]).to eq("Susan")
       expect(JSON.parse(response.body)["last_name"]).to eq("Wakoma")
+      expect(JSON.parse(response.body)["email"]).to eq("susanwakoma@test.com")
     end
   end
 
   describe "DELETE /users/:id" do
-    let!(:user) { FactoryBot.create(:user, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name) }
+    let!(:user) { create(:user) }
 
     it "deletes a user" do
       expect {
